@@ -5,7 +5,7 @@ services:
     image: mariadb:10.6.4-focal
     command: '--default-authentication-plugin=mysql_native_password'
     volumes:
-      - project_week:/var/lib/mysql
+      - m223_project_mariadb:/var/lib/mysql
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=supersecret123
@@ -26,6 +26,16 @@ services:
       - MYSQL_ROOT_PASSWORD=supersecret123
     ports:
       - 9200:80
+  
+  webserver:
+    image: dominicstreit/uek322-forum:latest
+    ports:
+      - 4200:4200
+    restart: always
+    depends_on:
+      - mariadb
+    environment:
+     - DB_HOST=mariadb
 
 volumes:
-  project_week:
+  m223_project_mariadb:
