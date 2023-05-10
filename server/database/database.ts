@@ -75,6 +75,7 @@ export class Database {
 
   public preventSQLInjection(text: string): string {
     text = text.replace(/'/g, "\\'")
+    if (!text) text = "NULL"
     /*
     // Regular expresions are not needed, but maybe in the future
     const onlyLettersPattern = /^[A-Za-z0-9\s$/@#*+%&()=.'-?]+$/

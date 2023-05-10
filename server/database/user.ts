@@ -58,9 +58,7 @@ export class User {
 
   async getOneUserbyName(name: string): Promise<AUser[]> {
     return await this._database.executeSQL(
-      `SELECT * FROM users WHERE name = '${this._database.preventSQLInjection(
-        name
-      )}'`
+      `SELECT * FROM users WHERE name = '${this._database.preventSQLInjection(name)}'`
     )
   }
 
@@ -78,9 +76,7 @@ export class User {
 
   async changeUserName(newName: string, Oldname: string): Promise<boolean> {
     let alreadyExists: AUser[] = await this._database.executeSQL(
-      `SELECT * FROM users WHERE name = '${this._database.preventSQLInjection(
-        Oldname
-      )}';`
+      `SELECT * FROM users WHERE name = '${this._database.preventSQLInjection(Oldname)}';`
     )
     if (alreadyExists.length == 0) {
       return false

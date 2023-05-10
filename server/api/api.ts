@@ -34,7 +34,7 @@ export class API {
     this.app.get('/api/WhoAmI', this.whoAmI.bind(this))
     this.app.put('/api/UserRole', this.changeRoll.bind(this))
     //post
-    this.app.get('/api/AllPosts', this.getAllPosts.bind(this))
+    this.app.get('/api/AllStudents', this.getAllStudents.bind(this))
     this.app.post('/api/Like', this.Like.bind(this))
     this.app.put('/api/Post', this.changePost.bind(this))
     this.app.post('/api/Post', this.createPost.bind(this))
@@ -130,19 +130,12 @@ export class API {
 
       const aUser: AUser[] = await this.user.getOneUserbyName(String(data.name))
 
-      if (aUser[0].ban == 1) {
-        res.status(403).json({
-          error: 'You Are Not alowed to do this',
-        })
-        return
-      }
-
       if (
         aUser.length == 0 ||
         !(await bcrypt.compare(String(data.password), aUser[0].passwdhash))
       ) {
         res.status(200).json({
-          error: 'Invalid name and password',
+          error: 'Invalid name or password',
         })
         return
       }
@@ -208,7 +201,7 @@ export class API {
     }
   }
 
-  private async getAllPosts(req: Request, res: Response) {
+  private async getAllStudents(req: Request, res: Response) {
     if (
       !(await this.validateUser(
         req.cookies.token,
@@ -219,7 +212,7 @@ export class API {
       return
     }
 
-    res.status(200).json(await this.post.getAllPosts())
+    res.status(200).json(await this.Students.getAllPosts())
   }
 
   private async createPost(req: Request, res: Response) {
