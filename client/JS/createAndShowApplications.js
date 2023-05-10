@@ -1,4 +1,4 @@
-function createNewApplication() {
+function createNewApplicationWindow() {
     //Get elements from mainPage.html and hidde or show their
     const userFunctions = document.getElementById("userFunctions");
     const mainWindow = document.getElementById("showMain");
@@ -18,49 +18,49 @@ function createNewApplication() {
     const contactDataContract = document.createElement("div");
     contactDataApp.innerHTML = `
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <input id="" type="date" class="w-[100%] h-[100%] text-[1.2rem]  bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
+        <input id="appDate" type="date" class="w-[100%] h-[100%] text-[1.2rem]  bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
         <label class="absolute left-[0.2rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-[rgba(255,255,255,0.2)]">Application date</label>
     </div>
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <input id="" maxlength="30" class="w-[100%] h-[100%] text-[1.2rem]  bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="Student name">
+        <input id="sName" maxlength="30" class="w-[100%] h-[100%] text-[1.2rem]  bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="Student name">
         <label class="absolute left-[0.75rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-white">Company name</label>
     </div>
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <input id="" maxlength="30" class="w-[100%] h-[100%] text-[1.2rem]  bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="Student surname">
+        <input id="rName" maxlength="30" class="w-[100%] h-[100%] text-[1.2rem]  bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="Student surname">
         <label class="absolute left-[0.75rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-white">Responsible person name</label>
     </div>
     <div class="grid grid-cols-3 grid-rows-2">
             <label class="mx-auto">Sent</label>
             <label class="mx-auto">Refused</label>
             <label class="mx-auto">Accepted</label>
-            <input id="" type="radio" name="status" checked class="w-[100%] h-[100%] text-[1rem]  bg-[rgba(0,0,0,0)]">
-            <input id="" type="radio" name="status" class="w-[100%] h-[100%] text-[1rem]  bg-[rgba(0,0,0,0)]"> 
-            <input id="" type="radio" name="status" class="w-[100%] h-[100%] text-[1rem]  bg-[rgba(0,0,0,0)]">     
+            <input type="radio" name="status" checked class="w-[100%] h-[100%] text-[1rem] bg-[rgba(0,0,0,0)] accepted">
+            <input type="radio" name="status" class="w-[100%] h-[100%] text-[1rem] bg-[rgba(0,0,0,0)] accepted"> 
+            <input type="radio" name="status" class="w-[100%] h-[100%] text-[1rem] bg-[rgba(0,0,0,0)] accepted">     
     </div>
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <input id="" type="date" class="w-[100%] h-[100%] text-[1.2rem]  bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
+        <input id="intDate" type="date" class="w-[100%] h-[100%] text-[1.2rem]  bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
         <label class="absolute left-[0.2rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-[rgba(255,255,255,0.2)]">Interview date</label>
     </div>
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <input id="" type="date" class="w-[100%] h-[100%] text-[1.2rem]  bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
+        <input id="tryOut" type="date" class="w-[100%] h-[100%] text-[1.2rem]  bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
         <label class="absolute left-[0.2rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-[rgba(255,255,255,0.2)]">Try-out</label>
     </div>
     `;
     contactDataContract.innerHTML = `
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <input id="" type="date" class="w-[100%] h-[100%] text-[1.2rem]  bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
+        <input id="dateContract" type="date" class="w-[100%] h-[100%] text-[1.2rem]  bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
         <label class="absolute left-[0.2rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-[rgba(255,255,255,0.2)]">Date of contract</label>
     </div>
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <input id="" maxlength="30" class="w-[100%] h-[100%] text-[1.2rem]  bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="Student surname">
+        <input id="fSalary" maxlength="30" class="w-[100%] h-[100%] text-[1.2rem]  bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="Student surname">
         <label class="absolute left-[0.75rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-white">First year salary</label>
     </div>
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <input id="" maxlength="30" class="w-[100%] h-[100%] text-[1.2rem]  bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="Student surname">
+        <input id="sSalary" maxlength="30" class="w-[100%] h-[100%] text-[1.2rem]  bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="Student surname">
         <label class="absolute left-[0.75rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-white">Second year salary</label>
     </div>
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <input id="" type="date" class="w-[100%] h-[100%] text-[1.2rem]  bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
+        <input id="approve" type="date" class="w-[100%] h-[100%] text-[1.2rem]  bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
         <label class="absolute left-[0.2rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-[rgba(255,255,255,0.2)]">Approval date</label>
     </div>
     <button type="button" onclick="" class="w-[100%] h-[3.5rem] mt-[0.5rem] mb-[0.25rem] bg-[rgba(0,0,0,0)] text-[1.5rem] hover:bg-[rgba(87,87,87,0.4)] rounded">
@@ -93,4 +93,17 @@ function createNewApplication() {
     form.appendChild(contactDataApp);
     form.appendChild(contactDataContract);
     createUser.appendChild(form);
+}
+
+function createNewApplication() {
+    const sName = document.getElementById("sName");
+    const rName = document.getElementById("appDate");
+    const fSalary = document.getElementById("fSalary");
+    const sSalary = document.getElementById("sSalary");
+
+    if (sName.value.length === undefined || sName.value.length < 3) {
+        customAlert(1, "Name is too short or empty");
+    } else {
+
+    }
 }

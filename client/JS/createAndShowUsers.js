@@ -27,15 +27,15 @@ function createNewUserWindow() {
     `;
     contactDataPerson.innerHTML = `
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <input id="" maxlength="30" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="Student name">
+        <input id="name" maxlength="30" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="Student name">
         <label class="absolute left-[0.75rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-white">Name</label>
     </div>
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <input id="" maxlength="30" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="Student surname">
+        <input id="surname" maxlength="30" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="Student surname">
         <label class="absolute left-[0.75rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-white">Surname</label>
     </div>
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <select id="" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
+        <select id="gender" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
             <option>Male</option>
             <option>Female</option>
             <option>Other</option>
@@ -45,51 +45,52 @@ function createNewUserWindow() {
     `;
     contactDataPlace.innerHTML = `
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <input id="" type="date" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
+        <input id="birthday" min="1990-01-01" max="2010-01-01" value="2000-01-01" type="date" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
         <label class="absolute left-[0.2rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-[rgba(255,255,255,0.2)]">Birthday</label>
     </div>
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <input id="" maxlength="40" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="City">
+        <input id="city" maxlength="40" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="City">
         <label class="absolute left-[0.75rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-white">City</label>
     </div>
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <input id="" maxlength="30" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="Street address">
+        <input id="street" maxlength="30" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="Street address">
         <label class="absolute left-[0.75rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-white">Street</label>
     </div>
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <input id="" maxlength="30" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="Post code">
+        <input id="postCode" max="9999999" min="0" type="number" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="Post code">
         <label class="absolute left-[0.75rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-white">Post code</label>
     </div>
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <input id="" maxlength="30" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="Post code">
+        <input id="email" maxlength="30" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="E-mail address">
         <label class="absolute left-[0.75rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-white">E-mail</label>
     </div>
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <input id="" maxlength="30" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="Post code">
+        <input id="telNum" onkeypress="valid()" type="tel" pattern="[0-9]{11,13}" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="Telephone number">
         <label class="absolute left-[0.75rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-white">Telephon number</label>
+        <label id="validTel" class="absolute right-[0.75rem] top-0 text-[1rem] font-normal text-red-500 px-[0.25rem] bg-white">X</label>
     </div>
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <input id="" maxlength="30" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="Social security number">
+        <input id="ahv" maxlength="30" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2" placeholder="Social security number">
         <label class="absolute left-[0.75rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-white">AHV</label>
     </div>
     `;
     contactDataAnother.innerHTML = `
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <select id="" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
+        <select id="guard" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
             <option>Self</option>
             <option>Parents</option>
         </select>
         <label class="absolute left-[0.75rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-white">Guardian</label>
     </div>
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <select id="" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
+        <select id="spec" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
             <option>Application developer</option>
             <option>Software developer</option>
         </select>
         <label class="absolute left-[0.75rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-white">Specialisation</label>
     </div>
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <select id="" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
+        <select id="class" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
             <option>inf-21</option>
             <option>inf-22</option>
             <option>inf-23</option>
@@ -97,17 +98,17 @@ function createNewUserWindow() {
         <label class="absolute left-[0.75rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-white">Class</label>
     </div>
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <input id="" type="number" maxlength="4" min="2023" max="2027" step="1" value="2023" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
+        <input id="qv" type="number" min="2023" max="2027" step="1" value="2023" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
         <label class="absolute left-[0.2rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-[rgba(255,255,255,0.2)]">Year QV</label>
     </div>
     `;
     contactDataFiles.innerHTML = `
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <input id="" type="file" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
+        <input id="contract" type="file" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
         <label class="absolute left-[0.2rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-[rgba(255,255,255,0.2)]">Internship contract</label>
     </div>
     <div class="relative mb-[1rem] h-[2rem] cursor-pointer">
-        <input id="" type="file" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
+        <input id="efz" type="file" class="w-[100%] h-[100%] text-[1.2rem] m-0 bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
         <label class="absolute left-[0.2rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-[rgba(255,255,255,0.2)]">EFZ copy</label>
     </div>
     <button type="button" onclick="createNewUser()" id="create" class="w-[100%] h-[3.5rem] mt-[0.5rem] mb-[0.25rem] bg-[rgba(0,0,0,0)] text-[1.5rem] hover:bg-[rgba(87,87,87,0.4)] rounded">
@@ -125,7 +126,7 @@ function createNewUserWindow() {
     contactDataAnother.className = blockStyle;
     form.className = "w-[95%] max-h-[26rem] overflow-y-auto";
     //Text
-    titel.innerText = "Create user";
+    titel.innerText = "Create student";
     //Functions
         //Return
         backArrow.addEventListener("click", function() {
@@ -147,18 +148,76 @@ function createNewUserWindow() {
 }
 
 function createNewUser() {
-    //Create user
-    document.getElementById("create").addEventListener("click", function() {
-    const image = document.getElementById("image");
-    const reader = new FileReader();
-    reader.addEventListener("load", () => {
-        console.log(reader.result);
-    })
-    if (image) {
-        
-        reader.readAsDataURL(image.files[0]);
-    } else {
+/*const reader = new FileReader();
+reader.addEventListener("load", () => {
+    console.log(reader.result);
+})
+reader.readAsDataURL(image.files[0]);
+*/
+//Create user
+const image = document.getElementById("image");     
+const name = document.getElementById("name"); 
+const surname = document.getElementById("surname");  
+const city = document.getElementById("city"); 
+const street = document.getElementById("street"); 
+const postCode = document.getElementById("postCode"); 
+const email = document.getElementById("email"); 
+const telNum = document.getElementById("telNum"); 
+const ahv = document.getElementById("ahv");  
+const qv = document.getElementById("qv"); 
+const contract = document.getElementById("contract"); 
+const efz = document.getElementById("efz"); 
 
-    } 
-});
+if (image.files[0] === undefined) {
+    customAlert(1, "Please choose some image");
+} else if (!image.files[0].name.includes("png")) {
+    customAlert(1, "Image has a false file format");
+} else if (name.value.length === undefined || name.value.length < 3) {
+    customAlert(1, "Name is too short or empty");
+} else if (surname.value.length === undefined || surname.value.length < 3) {
+    customAlert(1, "Surname is too short or empty");
+} else if (city.value.length === undefined || city.value.length < 3) {
+    customAlert(1, "City name is too short or empty");
+} else if (street.value.length === undefined || street.value.length < 3) {
+    customAlert(1, "Street name is too short or empty");
+} else if (postCode.value.length === undefined || postCode.value.length < 3) {
+    customAlert(1, "Post code is too short or empty");
+} else if (parseInt(postCode.value) > 9999999 || parseInt(postCode.value) < 0) {
+    customAlert(1, "Post code must to be not bigger 9999999 and not shorter 100");
+} else if (email.value.length === undefined || email.value.length < 3) {
+    customAlert(1, "E-mail is too short or empty");
+} else if (!email.value.includes("@")) {
+    customAlert(1, "False e-mail format");
+} else if (telNum.value.length === undefined || telNum.value.length < 11) {
+    customAlert(1, "Telephone number is too short or empty");
+} else if (!telNum.checkValidity()) {
+    customAlert(1, "Telephone have false format. The length must be 11-13 numbers.");
+} else if (ahv.value.length === undefined || ahv.value.length < 13) {
+    customAlert(1, "AHV is too short or empty");
+} else if (qv.value.length === undefined || qv.value.length < 4) {
+    customAlert(1, "Qv yaer ist too short or empty");
+} else if (qv.value < 2023 || qv.value > 2027) {
+    customAlert(1, "Qv yaer must be between 2023 and 2027");
+} else if (!contract.files[0].name.includes("pdf")) {
+    customAlert(1, "Contract has a false file format");
+} else if (!efz.files[0].name.includes("pdf")) {
+    customAlert(1, "EFZ has a ffile format");
+} else {
+
+}
+}
+
+function addNewUser(image, name, surname, city, street, postCode, email, telNum, ahv, qv) {
+    //Create DOM elements
+    
+}
+
+
+//Validate telnum
+function valid() {
+    if (document.getElementById("telNum").checkValidity()) {
+        document.getElementById("validTel").innerText = "OK";
+    } else {
+        document.getElementById("validTel").innerText = "X";
+    }
 }
