@@ -4,7 +4,7 @@ import { User, Post } from '../database'
 import pkg from 'jsonwebtoken'
 import * as bcrypt from 'bcrypt'
 
-import { AUser, APost } from '../interface/interface'
+import { AUser, AStudent } from '../interface/interface'
 
 export class API {
   // Properties
@@ -23,29 +23,30 @@ export class API {
     this.app.get('/api/Healthcheck', (req: Request, res: Response) =>
       res.status(200).send(1)
     )
-    //User
+    //Login and Logout
     this.app.post('/api/Login', this.login.bind(this))
     this.app.post('/api/Logout', this.logout.bind(this))
-    this.app.post('/api/Register', this.register.bind(this))
-    this.app.put('/api/UserName', this.changeUserName.bind(this))
-    this.app.put('/api/UserPWD', this.changeUserPassword.bind(this))
+
+    //Students
+    this.app.get('/api/Students', this.getAllUsers.bind(this))
+    this.app.post('/api/Student', this.changeUserName.bind(this))
+    this.app.put('/api/Student', this.changeUserPassword.bind(this))
+    this.app.delete('/api/Student', this.deleteUser.bind(this))
+    //Companies
+    this.app.get('/api/Comapnies', this.getAllStudents.bind(this))
+    this.app.post('/api/Company', this.Like.bind(this))
+    this.app.put('/api/Company', this.changePost.bind(this))
+    this.app.post('/api/Company', this.createPost.bind(this))
+    //Appications
+    this.app.put('/api/Appication', this.changeComment.bind(this))
+    this.app.delete('/api/Appication', this.deleteComment.bind(this))
+    this.app.post('/api/Appications', this.commentOnPost.bind(this))
+    this.app.get('/api/Appication', this.getComments.bind(this))
+    //Users
+    this.app.post('/api/User', this.banAUser.bind(this))
+    this.app.put('/api/User', this.changeUserRole.bind(this))
     this.app.delete('/api/User', this.deleteUser.bind(this))
-    this.app.get('/api/AllUsers', this.getAllUsers.bind(this))
-    this.app.get('/api/WhoAmI', this.whoAmI.bind(this))
-    this.app.put('/api/UserRole', this.changeRoll.bind(this))
-    //post
-    this.app.get('/api/AllStudents', this.getAllStudents.bind(this))
-    this.app.post('/api/Like', this.Like.bind(this))
-    this.app.put('/api/Post', this.changePost.bind(this))
-    this.app.post('/api/Post', this.createPost.bind(this))
-    this.app.delete('/api/Post', this.deletePost.bind(this))
-    this.app.get('/api/MyPosts', this.myPosts.bind(this))
-    //comment
-    this.app.put('/api/Comment', this.changeComment.bind(this))
-    this.app.delete('/api/Comment', this.deleteComment.bind(this))
-    this.app.post('/api/Comment', this.commentOnPost.bind(this))
-    //ban
-    this.app.post('/api/BanUser', this.banAUser.bind(this))
+    this.app.get('/api/Users', this.getAllUsers.bind(this))
   }
 
   // Methods
@@ -205,8 +206,8 @@ export class API {
     if (
       !(await this.validateUser(
         req.cookies.token,
-        ['Admin', 'Moderator', 'User'],
-        res
+        ['Admin', 'Moderator'],
+        
       ))
     ) {
       return

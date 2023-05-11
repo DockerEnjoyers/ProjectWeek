@@ -17,7 +17,6 @@ CREATE TABLE IF NOT EXISTS roles (
     role VARCHAR(30) NOT NULL,
     PRIMARY KEY (role)
 );
-
 `
 
 const ROLES_TABLE_CONTENT1 = `
