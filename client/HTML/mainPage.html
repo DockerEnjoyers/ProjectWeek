@@ -18,7 +18,7 @@
                     <div class="text-[1.5rem] mb-[0.5rem] border-b-2">
                         Logged as: <strong id="yourName"></strong>
                     </div>
-                    <div onclick="createNewUserWindow()" id="" class="listButton flex flex-row relative">
+                    <div onclick="createNewStudentWindow()" id="" class="listButton flex flex-row relative">
                         <div class="bg-[url('../Materials/user.png')] bg-cover w-[1.3rem] h-[1.3rem] absolute top-[0.4rem] left-[0.3rem]"></div>
                         <div class="ml-[3rem]">Students</div>
                     </div>
@@ -29,6 +29,10 @@
                     <div onclick="createNewApplicationWindow()" id="" class="listButton flex flex-row relative">
                         <div class="bg-[url('../Materials/resume.png')] bg-cover w-[1.3rem] h-[1.3rem] absolute top-[0.4rem] left-[0.3rem]"></div>
                         <div class="ml-[3rem]">Applications</div>
+                    </div>
+                    <div onclick="createNewUserWindow()" id="" class="listButton flex flex-row relative">
+                        <div class="bg-[url('../Materials/group.png')] bg-cover w-[1.3rem] h-[1.3rem] absolute top-[0.4rem] left-[0.3rem]"></div>
+                        <div class="ml-[3rem]">Users</div>
                     </div>
                     <div onclick="logout()" id="Logout" class="listButton flex flex-row relative">
                         <div class="bg-[url('../Materials/exit.png')] bg-cover w-[1.3rem] h-[1.3rem] absolute top-[0.4rem] left-[0.3rem]"></div>
@@ -72,8 +76,9 @@
         <script src="../JS/requestsAndResponces.js"></script>
         <script src="../JS/loginLogoutSignin.js"></script>
         <script src="../JS/showChangeProfile.js"></script>
-        <script src="../JS/createAndShowUsers.js"></script>
+        <script src="../JS/createAndShowStudents.js"></script>
         <script src="../JS/createAndShowCompanies.js"></script>
         <script src="../JS/createAndShowApplications.js"></script>
+        <script src="../JS/createAndShowUsers.js"></script>
     </body>
 </html>

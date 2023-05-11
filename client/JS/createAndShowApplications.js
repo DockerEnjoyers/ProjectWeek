@@ -1,3 +1,5 @@
+const { doc } = require("prettier");
+
 function createNewApplicationWindow() {
     //Get elements from mainPage.html and hidde or show their
     const userFunctions = document.getElementById("userFunctions");
@@ -9,6 +11,8 @@ function createNewApplicationWindow() {
     showWindow.style.display = "block";
     createUser.style.display = "block";
     createUser.innerHTML = "";
+    const postsWindow = document.getElementById("postsWindow");
+    postsWindow.innerHTML = "";
     //Create DOM elements 
     const header = document.createElement("div");
     const backArrow = document.createElement("div");
@@ -63,7 +67,7 @@ function createNewApplicationWindow() {
         <input id="approve" type="date" class="w-[100%] h-[100%] text-[1.2rem]  bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
         <label class="absolute left-[0.2rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-[rgba(255,255,255,0.2)]">Approval date</label>
     </div>
-    <button type="button" onclick="" class="w-[100%] h-[3.5rem] mt-[0.5rem] mb-[0.25rem] bg-[rgba(0,0,0,0)] text-[1.5rem] hover:bg-[rgba(87,87,87,0.4)] rounded">
+    <button type="button" onclick="createApplication()" class="w-[100%] h-[3.5rem] mt-[0.5rem] mb-[0.25rem] bg-[rgba(0,0,0,0)] text-[1.5rem] hover:bg-[rgba(87,87,87,0.4)] rounded">
         Create new application
     </button>
     `;
@@ -100,10 +104,22 @@ function createNewApplication() {
     const rName = document.getElementById("appDate");
     const fSalary = document.getElementById("fSalary");
     const sSalary = document.getElementById("sSalary");
+    const appDate = document.getElementById("appDate");
+    const status = document.getElementsByClassName("accepted")
+    const intDate = document.getElementById("intDate");
+    const tryOut = document.getElementById("tryOut");
+    const dateContract = document.getElementById("dateContract");
+    const approve = document.getElementById("approve");
 
     if (sName.value.length === undefined || sName.value.length < 3) {
-        customAlert(1, "Name is too short or empty");
+        customAlert(1, "Company name is too short or empty");
+    } else if (rName.value.length === undefined || rName.value.length < 3) {
+        customAlert(1, "Responsible person name  is too short or empty");
     } else {
-
+        createApplication();
     }
+}
+
+function createApplication() {
+
 }
