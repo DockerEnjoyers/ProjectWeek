@@ -74,18 +74,18 @@ function createNewUser() {
     } else if (password.value.length === undefined || password.value.length < 3) {
         customAlert(1, "Password is too short or empty");
     } else {
-        addNewUser(username.value, role.value);
+        addNewUser(username, role, password);
     }
 }
 
-function addNewUser(username, role) {
+function addNewUser(username, role, password) {
     //Create DOM elements
     const postsWindow = document.getElementById("postsWindow");
     const postWindow = document.createElement("div");
     const postBody = document.createElement("div");
     const postInfo = document.createElement("div");
     //Text
-    postInfo.innerText = `Username: ${username}\nRole: ${role}`;
+    postInfo.innerText = `Username: ${username.value}\nRole: ${role.value}`;
     //Styles
     postWindow.className = "bg-white mt-[2rem] border-4 border-gray-300 shadow-lg shadow-black";
     postBody.className = "ml-[0.5rem]";
@@ -93,4 +93,8 @@ function addNewUser(username, role) {
     postBody.appendChild(postInfo);
     postWindow.appendChild(postBody);
     postsWindow.insertBefore(postWindow, postsWindow.firstChild);
+    //Clear all
+    username.value = "";
+    password.value = "";
+    role.value = "User";
 }

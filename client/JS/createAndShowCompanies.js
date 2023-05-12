@@ -142,59 +142,70 @@ function createNewCompany() {
     } else {
         const reader = new FileReader();
         reader.addEventListener("load", () => {
-            addNewCompany(name.value, city.value, street.value, email.value, telNum.value, pName.value, pSurname.value, pEmail.value, pTelNum.value, reader.result);
+            addNewCompany(name, city, street, email, telNum, pName, pSurname, pEmail, pTelNum, reader.result, contract);
         })
         reader.readAsDataURL(contract.files[0]);
     }
 }
 
-function addNewCompany(name, city, street, email, telNum, pName, pSurname, pEmail, pTelNum, contracts) {
-     //Create DOM elements
-     const postsWindow = document.getElementById("postsWindow");
-     const postWindow = document.createElement("div");
-     const postHeader = document.createElement("div");
-     const postBody = document.createElement("div");
-     const postFooter = document.createElement("div");
-     const postName = document.createElement("div");
-     const postAddress = document.createElement("div");
-     const postPersInfo = document.createElement("div");
-     const postPerson = document.createElement("div");
-     const postDownload = document.createElement("a");
-     const postDelete = document.createElement("button");
-     const postEdit = document.createElement("button");
-     //Download
-     postDownload.download = "contract.pdf";
-     postDownload.href = contracts;
-     //Text
-     postName.innerText = `Company: ${name}`;
-     postAddress.innerText = `Address: ${city}, ${street}`;
-     postPersInfo.innerText = `E-mail: ${email} \n Telephone number: ${telNum}`;
-     postPerson.innerText = `Responsible person: ${pName} ${pSurname} \nE-mail: ${pEmail}\nTelephone number: ${pTelNum}`;
-     postDownload.innerText = `Download contact`;
-     //Styles
-     postWindow.className = "bg-white mt-[2rem] border-4 border-gray-300 shadow-lg shadow-black";
-     postHeader.className = "flex flex-row mt-[0.5rem]";
-     postBody.className = "ml-[0.5rem]";
-     postPersInfo.className = "border-b-2 mb-2";
-     postFooter.className = "ml-[0.5rem] flex flex-row mb-2";
-     postName.className = "ml-[0.5rem] text-[1.2rem]";
-     postDelete.className = "bg-[url('../Materials/delete.png')] bg-cover w-[1.4rem] h-[1.4rem] ml-auto mt-[0.2rem] cursor-pointer hover:bg-[rgba(250,20,50,0.4)] rounded";
-     postEdit.className = "bg-[url('../Materials/editing.png')] bg-cover w-[1.4rem] h-[1.4rem] ml-[1rem] mr-[1.5rem] mt-[0.2rem] cursor-pointer hover:bg-[rgba(245,255,90,0.4)] rounded";
-     postDownload.className = "text-blue-500 underline underline-offset-4";
-     //Functions
-        postDelete.addEventListener("click", function() {       
-            postWindow.remove();
-        });
-     //Appends
-     postHeader.appendChild(postName);
-     postBody.appendChild(postAddress);
-     postBody.appendChild(postPersInfo);
-     postBody.appendChild(postPerson);
-     postFooter.appendChild(postDownload);
-     postFooter.appendChild(postDelete);
-     postFooter.appendChild(postEdit);
-     postWindow.appendChild(postHeader);
-     postWindow.appendChild(postBody);
-     postWindow.appendChild(postFooter);
-     postsWindow.insertBefore(postWindow, postsWindow.firstChild);
+function addNewCompany(name, city, street, email, telNum, pName, pSurname, pEmail, pTelNum, contracts, contract) {
+    //Create DOM elements
+    const postsWindow = document.getElementById("postsWindow");
+    const postWindow = document.createElement("div");
+    const postHeader = document.createElement("div");
+    const postBody = document.createElement("div");
+    const postFooter = document.createElement("div");
+    const postName = document.createElement("div");
+    const postAddress = document.createElement("div");
+    const postPersInfo = document.createElement("div");
+    const postPerson = document.createElement("div");
+    const postDownload = document.createElement("a");
+    const postDelete = document.createElement("button");
+    const postEdit = document.createElement("button");
+    //Download
+    postDownload.download = "contract.pdf";
+    postDownload.href = contracts;
+    //Text
+    postName.innerText = `Company: ${name.value}`;
+    postAddress.innerText = `Address: ${city.value}, ${street.value}`;
+    postPersInfo.innerText = `E-mail: ${email.value} \n Telephone number: ${telNum.value}`;
+    postPerson.innerText = `Responsible person: ${pName.value} ${pSurname.value} \nE-mail: ${pEmail.value}\nTelephone number: ${pTelNum.value}`;
+    postDownload.innerText = `Download contact`;
+    //Styles
+    postWindow.className = "bg-white mt-[2rem] border-4 border-gray-300 shadow-lg shadow-black";
+    postHeader.className = "flex flex-row mt-[0.5rem]";
+    postBody.className = "ml-[0.5rem]";
+    postPersInfo.className = "border-b-2 mb-2";
+    postFooter.className = "ml-[0.5rem] flex flex-row mb-2";
+    postName.className = "ml-[0.5rem] text-[1.2rem]";
+    postDelete.className = "bg-[url('../Materials/delete.png')] bg-cover w-[1.4rem] h-[1.4rem] ml-auto mt-[0.2rem] cursor-pointer hover:bg-[rgba(250,20,50,0.4)] rounded";
+    postEdit.className = "bg-[url('../Materials/editing.png')] bg-cover w-[1.4rem] h-[1.4rem] ml-[1rem] mr-[1.5rem] mt-[0.2rem] cursor-pointer hover:bg-[rgba(245,255,90,0.4)] rounded";
+    postDownload.className = "text-blue-500 underline underline-offset-4";
+    //Functions
+    postDelete.addEventListener("click", function() {       
+        postWindow.remove();
+    });
+    //Appends
+    postHeader.appendChild(postName);
+    postBody.appendChild(postAddress);
+    postBody.appendChild(postPersInfo);
+    postBody.appendChild(postPerson);
+    postFooter.appendChild(postDownload);
+    postFooter.appendChild(postDelete);
+    postFooter.appendChild(postEdit);
+    postWindow.appendChild(postHeader);
+    postWindow.appendChild(postBody);
+    postWindow.appendChild(postFooter);
+    postsWindow.insertBefore(postWindow, postsWindow.firstChild);
+    //Clear all
+    name.value = "";
+    city.value = "";
+    street.value = "";
+    email.value = "";
+    telNum.value = "";
+    pName.value = "";
+    pSurname.value = "";
+    pEmail.value = "";
+    pTelNum.value = "";
+    contract.value = "";
 }

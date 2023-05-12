@@ -228,7 +228,7 @@ function createNewStudent() {
                     if (efz.files[0] === undefined) files.push(0);
                     reader.readAsDataURL(marks.files[0]); 
                 } else {
-                    addNewStudent(files, name.value, surname.value, gender.value, birthday.value, city.value, street.value, postCode.value, email.value, telNum.value, ahv.value, qv.value, guardian.value, spec.value, classe.value);
+                    addNewStudent(files, name, surname, gender, birthday, city, street, postCode, email, telNum, ahv, qv, guardian, spec, classe, image, contract, efz, marks);
                 }
             } else if (checkOut === 1) {
                 if (efz.files[0] !== undefined) {
@@ -241,24 +241,24 @@ function createNewStudent() {
                     if (efz.files[0] === undefined) files.push(0);
                     reader.readAsDataURL(marks.files[0]); 
                 } else {
-                    addNewStudent(files, name.value, surname.value, gender.value, birthday.value, city.value, street.value, postCode.value, email.value, telNum.value, ahv.value, qv.value, guardian.value, spec.value, classe.value);
+                    addNewStudent(files, name, surname, gender, birthday, city, street, postCode, email, telNum, ahv, qv, guardian, spec, classe, image, contract, efz, marks);
                 }
             } else if (checkOut === 2) {
                 if (marks.files[0] !== undefined) {
                     checkOut = 3;
                     reader.readAsDataURL(marks.files[0]); 
                 } else {
-                    addNewStudent(files, name.value, surname.value, gender.value, birthday.value, city.value, street.value, postCode.value, email.value, telNum.value, ahv.value, qv.value, guardian.value, spec.value, classe.value);
+                    addNewStudent(files, name, surname, gender, birthday, city, street, postCode, email, telNum, ahv, qv, guardian, spec, classe, image, contract, efz, marks);
                 }
             } else if (checkOut === 3) {
-                addNewStudent(files, name.value, surname.value, gender.value, birthday.value, city.value, street.value, postCode.value, email.value, telNum.value, ahv.value, qv.value, guardian.value, spec.value, classe.value);
+                addNewStudent(files, name, surname, gender, birthday, city, street, postCode, email, telNum, ahv, qv, guardian, spec, classe, image, contract, efz, marks);
             } 
         })
         reader.readAsDataURL(image.files[0]);
     }
 }
 
-function addNewStudent(files, name, surname, gender, birthday, city, street, postCode, email, telNum, ahv, qv, guardian, spec, classe) {
+function addNewStudent(files, name, surname, gender, birthday, city, street, postCode, email, telNum, ahv, qv, guardian, spec, classe, image, contract, efz, marks) {
     //Create DOM elements
     const postsWindow = document.getElementById("postsWindow");
     const postWindow = document.createElement("div");
@@ -277,10 +277,10 @@ function addNewStudent(files, name, surname, gender, birthday, city, street, pos
     const postDelete = document.createElement("button");
     const postEdit = document.createElement("button");
     //Text
-    postName.innerText = `Name: ${name} ${surname}`;
-    postAddress.innerText = `Gender: ${gender} | Birthday: ${birthday}\nAddress: ${city}, ${street} ${postCode}`;
-    postPersInfo.innerText = `E-mail: ${email} \n Telephone number: ${telNum}`;
-    postAnother.innerText = `AHV: ${ahv} | QV-Year: ${qv}\nClase: ${classe} | Specialisation: ${spec}\nGuardian: ${guardian}`;
+    postName.innerText = `Name: ${name.value} ${surname.value}`;
+    postAddress.innerText = `Gender: ${gender.value} | Birthday: ${birthday.value}\nAddress: ${city.value}, ${street.value} ${postCode.value}`;
+    postPersInfo.innerText = `E-mail: ${email.value} \n Telephone number: ${telNum.value}`;
+    postAnother.innerText = `AHV: ${ahv.value} | QV-Year: ${qv.value}\nClase: ${classe.value} | Specialisation: ${spec.value}\nGuardian: ${guardian.value}`;
     postImage.src = files[0];
     postDownloadContract.innerText = "Download contract";
     postDownloadEfz.innerText = "Download efz";
@@ -330,6 +330,25 @@ function addNewStudent(files, name, surname, gender, birthday, city, street, pos
     postWindow.appendChild(postBody);
     postWindow.appendChild(postFooter);
     postsWindow.insertBefore(postWindow, postsWindow.firstChild);
+    //Cleare after use
+    name.value = "";
+    surname.value = "";
+    city.value = "";
+    street.value = "";
+    postCode.value = "";
+    email.value = "";
+    telNum.value = "";
+    ahv.value = "";
+    birthday.value = "2000-01-01";
+    gender.value = "Male";
+    guardian.value = "Self";
+    spec.value = "Application developer";
+    classe.value = "inf-21";
+    qv.value = "2023";
+    image.value = "";
+    contract.value = "";
+    efz.value = "";
+    marks.value = "";
 }
 
 
