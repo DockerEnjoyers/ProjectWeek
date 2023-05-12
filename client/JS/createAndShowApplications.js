@@ -104,7 +104,7 @@ function createNewApplicationWindow() {
 
 function createNewApplication() {
     const sName = document.getElementById("sName");
-    const rName = document.getElementById("appDate");
+    const rName = document.getElementById("rName");
     const fSalary = document.getElementById("fSalary");
     const sSalary = document.getElementById("sSalary");
     const status = document.getElementsByClassName("accepted")
@@ -119,11 +119,11 @@ function createNewApplication() {
     } else if (rName.value.length === undefined || rName.value.length < 3) {
         customAlert(1, "Responsible person name  is too short or empty");
     } else {
-        createApplication(sName.value, rName.value, fSalary.value, sSalary.value, appDate.value, status.value, intDate.value, status.value, intDate.value, tryOut.value, dateContract.value, approve.value);
+        createApplication(sName, rName, fSalary, sSalary, appDate, intDate, status, intDate, tryOut, dateContract, approve);
     }
 }
 
-function createApplication(sName, rName, fSalary, sSalary, appDate, status, intDate, status, intDate, tryOut, dateContract, approve) {
+function createApplication(sName, rName, fSalary, sSalary, appDate, intDate, status, intDate, tryOut, dateContract, approve) {
     //Create DOM elements
     const postsWindow = document.getElementById("postsWindow");
     const postWindow = document.createElement("div");
@@ -137,10 +137,15 @@ function createApplication(sName, rName, fSalary, sSalary, appDate, status, intD
     const postDelete = document.createElement("button");
     const postEdit = document.createElement("button");
     //Text
-    postName.innerText = `Company: ${sName}`;
-    postAddress.innerText = `Responsible person: ${rName}`;
-    postPersInfo.innerText = `Interview date: ${intDate} \nTry-out date: ${tryOut}`;
-    postPerson.innerText = `Contract date: ${dateContract}\nFirst yaer salary:${fSalary}| Seconde yaer: ${sSalary}\nApproval date: ${approve}`;
+    for (let i = 0; i < status.length; i++) {
+        if (status[i].checked) {
+            
+        }
+    }
+    postName.innerText = `Company: ${sName.value}`;
+    postAddress.innerText = `Responsible person: ${rName.value}\n Application date: ${appDate.value}`;
+    postPersInfo.innerText = `Interview date: ${intDate.value} \nTry-out date: ${tryOut.value}`;
+    postPerson.innerText = `Contract date: ${dateContract.value}\nFirst year salary:${fSalary.value} | Seconde year: ${sSalary.value}\nApproval date: ${approve.value}`;
     //Styles
     postWindow.className = "bg-white mt-[2rem] border-4 border-gray-300 shadow-lg shadow-black";
     postHeader.className = "flex flex-row mt-[0.5rem]";
@@ -165,4 +170,14 @@ function createApplication(sName, rName, fSalary, sSalary, appDate, status, intD
     postWindow.appendChild(postBody);
     postWindow.appendChild(postFooter);
     postsWindow.insertBefore(postWindow, postsWindow.firstChild);
+    //Clear all
+    sName.value = "";
+    rName.value = "";
+    fSalary.value = "";
+    sSalary.value = "";
+    document.getElementById("appDate").valueAsDate = new Date();
+    document.getElementById("intDate").valueAsDate = new Date();
+    document.getElementById("tryOut").valueAsDate = new Date();
+    document.getElementById("dateContract").valueAsDate = new Date();
+    document.getElementById("approve").valueAsDate = new Date();
 }
