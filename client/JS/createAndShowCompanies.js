@@ -150,7 +150,6 @@ function createNewCompany() {
 
 function addNewCompany(name, city, street, email, telNum, pName, pSurname, pEmail, pTelNum, contracts) {
      //Create DOM elements
-     console.log(contracts);
      const postsWindow = document.getElementById("postsWindow");
      const postWindow = document.createElement("div");
      const postHeader = document.createElement("div");
@@ -182,6 +181,10 @@ function addNewCompany(name, city, street, email, telNum, pName, pSurname, pEmai
      postDelete.className = "bg-[url('../Materials/delete.png')] bg-cover w-[1.4rem] h-[1.4rem] ml-auto mt-[0.2rem] cursor-pointer hover:bg-[rgba(250,20,50,0.4)] rounded";
      postEdit.className = "bg-[url('../Materials/editing.png')] bg-cover w-[1.4rem] h-[1.4rem] ml-[1rem] mr-[1.5rem] mt-[0.2rem] cursor-pointer hover:bg-[rgba(245,255,90,0.4)] rounded";
      postDownload.className = "text-blue-500 underline underline-offset-4";
+     //Functions
+        postDelete.addEventListener("click", function() {       
+            postWindow.remove();
+        });
      //Appends
      postHeader.appendChild(postName);
      postBody.appendChild(postAddress);

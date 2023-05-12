@@ -1,5 +1,3 @@
-const { doc } = require("prettier");
-
 function createNewApplicationWindow() {
     //Get elements from mainPage.html and hidde or show their
     const userFunctions = document.getElementById("userFunctions");
@@ -89,7 +87,6 @@ function createNewApplicationWindow() {
         showWindow.style.display = "none";
         createUser.style.display = "none";
     });
-    
     //Appends
     header.appendChild(backArrow);
     header.appendChild(titel);
@@ -97,6 +94,12 @@ function createNewApplicationWindow() {
     form.appendChild(contactDataApp);
     form.appendChild(contactDataContract);
     createUser.appendChild(form);
+    //Set dates
+    document.getElementById("appDate").valueAsDate = new Date();
+    document.getElementById("intDate").valueAsDate = new Date();
+    document.getElementById("tryOut").valueAsDate = new Date();
+    document.getElementById("dateContract").valueAsDate = new Date();
+    document.getElementById("approve").valueAsDate = new Date();
 }
 
 function createNewApplication() {
@@ -104,8 +107,8 @@ function createNewApplication() {
     const rName = document.getElementById("appDate");
     const fSalary = document.getElementById("fSalary");
     const sSalary = document.getElementById("sSalary");
-    const appDate = document.getElementById("appDate");
     const status = document.getElementsByClassName("accepted")
+    const appDate = document.getElementById("appDate");
     const intDate = document.getElementById("intDate");
     const tryOut = document.getElementById("tryOut");
     const dateContract = document.getElementById("dateContract");
@@ -116,10 +119,50 @@ function createNewApplication() {
     } else if (rName.value.length === undefined || rName.value.length < 3) {
         customAlert(1, "Responsible person name  is too short or empty");
     } else {
-        createApplication();
+        createApplication(sName.value, rName.value, fSalary.value, sSalary.value, appDate.value, status.value, intDate.value, status.value, intDate.value, tryOut.value, dateContract.value, approve.value);
     }
 }
 
-function createApplication() {
-
+function createApplication(sName, rName, fSalary, sSalary, appDate, status, intDate, status, intDate, tryOut, dateContract, approve) {
+    //Create DOM elements
+    const postsWindow = document.getElementById("postsWindow");
+    const postWindow = document.createElement("div");
+    const postHeader = document.createElement("div");
+    const postBody = document.createElement("div");
+    const postFooter = document.createElement("div");
+    const postName = document.createElement("div");
+    const postAddress = document.createElement("div");
+    const postPersInfo = document.createElement("div");
+    const postPerson = document.createElement("div");
+    const postDelete = document.createElement("button");
+    const postEdit = document.createElement("button");
+    //Text
+    postName.innerText = `Company: ${sName}`;
+     postAddress.innerText = `Responsible person: ${rName}`;
+     postPersInfo.innerText = `Interview date: ${intDate} \nTry-out date: ${tryOut}`;
+     postPerson.innerText = `Contract date: ${dateContract}\nFirst yaer salary:${fSalary}| Seconde yaer: ${sSalary}\nApproval date: ${approve}`;
+    //Styles
+    postWindow.className = "bg-white mt-[2rem] border-4 border-gray-300 shadow-lg shadow-black";
+    postHeader.className = "flex flex-row mt-[0.5rem]";
+    postBody.className = "ml-[0.5rem]";
+    postPersInfo.className = "border-b-2 mb-2";
+    postFooter.className = "ml-[0.5rem] flex flex-row mb-2";
+    postName.className = "ml-[0.5rem] text-[1.2rem]";
+    postDelete.className = "bg-[url('../Materials/delete.png')] bg-cover w-[1.4rem] h-[1.4rem] ml-auto mt-[0.2rem] cursor-pointer hover:bg-[rgba(250,20,50,0.4)] rounded";
+    postEdit.className = "bg-[url('../Materials/editing.png')] bg-cover w-[1.4rem] h-[1.4rem] ml-[1rem] mr-[1.5rem] mt-[0.2rem] cursor-pointer hover:bg-[rgba(245,255,90,0.4)] rounded";
+    //Functions
+    postDelete.addEventListener("click", function() {       
+        postWindow.remove();
+    });
+    //Appends
+    postHeader.appendChild(postName);
+    postBody.appendChild(postAddress);
+    postBody.appendChild(postPersInfo);
+    postBody.appendChild(postPerson);
+    postFooter.appendChild(postDelete);
+    postFooter.appendChild(postEdit);
+    postWindow.appendChild(postHeader);
+    postWindow.appendChild(postBody);
+    postWindow.appendChild(postFooter);
+    postsWindow.insertBefore(postWindow, postsWindow.firstChild);
 }
