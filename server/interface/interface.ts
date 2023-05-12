@@ -1,5 +1,5 @@
 export interface AUser {
-    id: number
+    user_id: number
     name: string
     passwdhash: string
     role: "admin" | "user"

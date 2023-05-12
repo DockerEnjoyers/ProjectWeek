@@ -1,5 +1,5 @@
 import { Request, Response, Express } from 'express'
-import { User, Post } from '../database'
+import { User, Students } from '../database'
 
 import pkg from 'jsonwebtoken'
 import * as bcrypt from 'bcrypt'
@@ -26,27 +26,26 @@ export class API {
     //Login and Logout
     this.app.post('/api/Login', this.login.bind(this))
     this.app.post('/api/Logout', this.logout.bind(this))
-
     //Students
-    this.app.get('/api/Students', this.getAllUsers.bind(this))
-    this.app.post('/api/Student', this.changeUserName.bind(this))
-    this.app.put('/api/Student', this.changeUserPassword.bind(this))
-    this.app.delete('/api/Student', this.deleteUser.bind(this))
+    this.app.get('/api/Students', this.getAllStudents.bind(this))
+    this.app.post('/api/Student', this.addStudent.bind(this))
+    this.app.put('/api/Student', this.changeStudent.bind(this))
+    this.app.delete('/api/Student', this.deleteStudent.bind(this))
     //Companies
-    this.app.get('/api/Comapnies', this.getAllStudents.bind(this))
-    this.app.post('/api/Company', this.Like.bind(this))
-    this.app.put('/api/Company', this.changePost.bind(this))
-    this.app.post('/api/Company', this.createPost.bind(this))
-    //Appications
-    this.app.put('/api/Appication', this.changeComment.bind(this))
-    this.app.delete('/api/Appication', this.deleteComment.bind(this))
-    this.app.post('/api/Appications', this.commentOnPost.bind(this))
-    this.app.get('/api/Appication', this.getComments.bind(this))
+    this.app.get('/api/Comapnies', this.getAllCompanies.bind(this))
+    this.app.post('/api/Company', this.addCompany.bind(this))
+    this.app.put('/api/Company', this.changeCompany.bind(this))
+    this.app.delete('/api/Company', this.deleteCompany.bind(this))
+    //Applications
+    this.app.get('/api/Application', this.getApplication.bind(this))
+    this.app.post('/api/Application', this.addApplication.bind(this))
+    this.app.put('/api/Applications', this.changeApplication.bind(this))
+    this.app.delete('/api/Application', this.deleteApplication.bind(this))
     //Users
-    this.app.post('/api/User', this.banAUser.bind(this))
-    this.app.put('/api/User', this.changeUserRole.bind(this))
-    this.app.delete('/api/User', this.deleteUser.bind(this))
     this.app.get('/api/Users', this.getAllUsers.bind(this))
+    this.app.post('/api/User', this.addUser.bind(this))
+    this.app.put('/api/User', this.changeUser.bind(this))
+    this.app.delete('/api/User', this.deleteUser.bind(this))
   }
 
   // Methods
@@ -61,18 +60,8 @@ export class API {
 
       const aUser: AUser[] = await this.user.getOneUserbyId(String(id))
 
-      if (aUser[0].ban == 1) {
-        if (res === undefined) {
-          return false
-        }
-        res.status(403).json({
-          error: 'Banned',
-        })
-        return false
-      }
-
-      for (let i = 0; i < privliges.length; i++) {
-        const element = privliges[i]
+      for (let i = 0; i < role.length; i++) {
+        const element = role[i]
         if (aUser[0].role == element) {
           return aUser[0]
         }
@@ -164,62 +153,14 @@ export class API {
     }
   }
 
-  private async register(req: Request, res: Response) {
-    try {
-      const data: any = req.body
-      console.log(req.body);
-      if (!data.name) {
-        res.status(406).json({
-          error: 'Invalid name',
-        })
-        return
-      }
-      if (!data.password) {
-        res.status(406).json({
-          error: 'Invalid password',
-        })
-        return
-      }
-
-      const hashPWD: string = await this.hashPassword(String(data.password))
-
-      if (await this.user.register(String(data.name), hashPWD)) {
-        res.status(201).json({
-          info: 'Succesfuly Registerd',
-        })
-        return
-      }
-      res.status(406).json({
-        error:
-          'Unable to Registerd, PLease Use A-Z, a-z, 0-9, $, / or . In Your Provided Data Or use another Name',
-      })
-      return
-    } catch (e) {
-      console.log(e)
-      res.status(500).json({
-        error: 'Register Failed',
-      })
-    }
+  private async getAllCompanies(req: Request, res: Response) {
+    res.status(200).json(await this.getAllCompanies.bind(this))
   }
 
-  private async getAllStudents(req: Request, res: Response) {
-    if (
-      !(await this.validateUser(
-        req.cookies.token,
-        ['Admin', 'Moderator'],
-        
-      ))
-    ) {
-      return
-    }
-
-    res.status(200).json(await this.Students.getAllPosts())
-  }
-
-  private async createPost(req: Request, res: Response) {
+  private async addCompany(req: Request, res: Response) {
     const user = await this.validateUser(
       req.cookies.token,
-      ['Admin', 'Moderator', 'User'],
+      ['Admin'],
       res
     )
     if (!user) {
@@ -228,163 +169,71 @@ export class API {
 
     const data: any = req.body
 
-    if (!data.titel) {
-      res.status(406).json({
-        error: 'Invalid title',
-      })
-      return
-    }
-    if (!data.content) {
-      res.status(406).json({
-        error: 'Invalid content',
-      })
-      return
-    }
-    if (!user.id) {
-      res.status(406).json({
-        error: 'Invalid id',
-      })
-      return
-    }
-
-    this.post.createPost(String(data.titel), String(data.content), String(user.id))
+    this.post.addCompany(Number(data.company_id), String(data.company_name), String(data.street), String(data.city), Number(data.zip))
 
     res.status(201).json({
-      info: 'Created a Post',
+      info: 'added a Student',
     })
     return
   }
 
   // ToDo: Admin/moderator can delete all posts user just own
-  private async deletePost(req: Request, res: Response) {
+  private async deleteCompany(req: Request, res: Response) {
     const data: any = req.body
 
-    if (!data.postid) {
+    if (!data.student_id) {
       res.status(406).json({
-        error: 'Invalid postid',
+        error: 'Invalid student id',
       })
       return
     }
 
-    let user = await this.validateUser(req.cookies.token, ['User'])
+    let user = await this.validateUser(req.cookies.token, ['Admin'])
     if (user !== false) {
-      const MY_POSTS: APost[] = await this.post.getOnePersonsPosts(String(user.id))
-
-      for (let i = 0; i < MY_POSTS.length; i++) {
-        const element = MY_POSTS[i]
-
-        if (data.postid == element.id) {
-          await this.post.deletePost(String(element.id))
-          res.status(200).json({
-            info: 'deleted post: ' + element.id,
-          })
-          return
-        }
-      }
-      res.status(404).json({
-        error: 'didnt delete a post',
-      })
-      return
-    }
-    user = await this.validateUser(req.cookies.token, ['Admin', 'Moderator'])
-    if (user !== false) {
-      await this.post.deletePost(String(data.postid))
+      await this.post.deleteCompany(String(data.company_id))
       res.status(200).json({
         info:
-          'deleted post, This Post Could Also Not Exist',
+          'deleted company',
       })
       return
     }
 
     res.status(400).json({
-      error: 'didnt delete a post',
+      error: 'didnt delete a company',
     })
     return
   }
 
-  private async changePost(req: Request, res: Response) {
+  private async changeCompany(req: Request, res: Response) {
     const data: any = req.body
 
-    if (!data.postid) {
+    if (!data.company_id) {
       res.status(406).json({
-        error: 'Invalid postid',
-      })
-      return
-    }
-    if (!data.titel) {
-      res.status(406).json({
-        error: 'Invalid titel',
-      })
-      return
-    }
-    if (!data.content) {
-      res.status(406).json({
-        error: 'Invalid content',
+        error: 'Invalid student id',
       })
       return
     }
 
-    let user = await this.validateUser(req.cookies.token, ['User'])
+    let user = await this.validateUser(req.cookies.token, ['Admin'])
     if (user !== false) {
-      const MY_POSTS: APost[] = await this.post.getOnePersonsPosts(String(user.id))
-
-      for (let i = 0; i < MY_POSTS.length; i++) {
-        const element = MY_POSTS[i]
-
-        if (data.postid == element.id) {
-          await this.post.changePostData(
-            String(element.id),
-            String(data.titel),
-            String(data.content)
-          )
-          res.status(200).json({
-            info: 'changed post: ' + element.id,
-          })
-          return
-        }
-      }
-      res.status(404).json({
-        error: 'didnt change a post',
-      })
-      return
-    }
-    user = await this.validateUser(req.cookies.token, ['Admin', 'Moderator'])
-    if (user !== false) {
-      if (await this.post.changePostData(
-        String(data.postid),
-        String(data.titel),
-        String(data.content)
-      )) {
+      if (await this.companies.changeCompany(
+        Number(data.company_id),
+        String(data.company_name),
+        String(data.street),
+        String(data.city),
+        Number(data.zip)
+        )) {
         res.status(200).json({
           info:
-            'changed post',
+            'changed company',
         })
         return
       }
       res.status(404).json({
-        error: 'post does not exist',
+        error: 'company does not exist',
       })
       return
     }
-  }
-
-  private async myPosts(req: Request, res: Response) {
-    let user = await this.validateUser(
-      req.cookies.token,
-      ['Admin', 'Moderator', 'User'],
-      res
-    )
-    if (!user) {
-      return
-    }
-    const MY_POSTS: APost[] = await this.post.getOnePersonsPosts(String(user.id))
-
-    if (!MY_POSTS) {
-      res.status(401).json({
-        error: 'Unable to get your posts',
-      })
-    }
-    res.status(200).json(MY_POSTS)
   }
 
   private async getAllUsers(req: Request, res: Response) {
@@ -394,54 +243,30 @@ export class API {
     res.status(200).json(await this.user.getAllUsers())
   }
 
-  private async whoAmI(req: Request, res: Response) {
-    const user = await this.validateUser(
-      req.cookies.token,
-      ['Admin', 'Moderator', 'User'],
-      res
-    )
-    if (!user) {
-      return
-    }
-    const ME = await this.user.getOneUserbyId(String(user.id))
-
-    const ME_BUT_NO_PASWD = {
-      id: ME[0].id,
-      name: ME[0].name,
-      role: ME[0].role,
-    }
-
-    res.status(200).json(ME_BUT_NO_PASWD)
-  }
-
   private async deleteUser(req: Request, res: Response) {
-    let user = await this.validateUser(req.cookies.token, ['User'])
-    if (user !== false) {
-      this.user.deleteUserbyName(String(user.name))
-    }
-    user = await this.validateUser(req.cookies.token, ['Admin', 'Moderator'])
+    let user = await this.validateUser(req.cookies.token, ['Admin'])
     if (user !== false) {
       const data: any = req.body
 
-      if (!data.username) {
+      if (!data.user_id) {
         res.status(406).json({
           error: 'Invalid username',
         })
         return
       }
 
-      await this.user.deleteUserbyName(String(data.username))
+      await this.user.deleteUserbyId(String(data.user_id))
       res.status(200).json({
-        info: 'Deleted a User: ' + data.username,
+        info: 'Deleted a User: ' + data.user_id,
       })
       return
     }
   }
 
-  private async changeUserPassword(req: Request, res: Response) {
+  private async changeUser(req: Request, res: Response) {
     const user = await this.validateUser(
       req.cookies.token,
-      ['Admin', 'Moderator', 'User'],
+      ['Admin'],
       res
     )
     if (!user) {
@@ -483,10 +308,10 @@ export class API {
     return
   }
 
-  private async changeUserName(req: Request, res: Response) {
+  private async addUser(req: Request, res: Response) {
     const user = await this.validateUser(
       req.cookies.token,
-      ['Admin', 'Moderator', 'User'],
+      ['Admin'],
       res
     )
     if (!user) {
@@ -502,7 +327,7 @@ export class API {
       return
     }
 
-    if (await this.user.changeUserName(String(data.newName), user.name)) {
+    if (await this.user.addUser(String(data.newName), user.name)) {
       res.status(200).json({
         info: 'Name has been changed',
       })
@@ -515,51 +340,146 @@ export class API {
     return
   }
 
-  private async Like(req: Request, res: Response) {
-    const user = await this.validateUser(
-      req.cookies.token,
-      ['Admin', 'Moderator', 'User'],
-      res
-    )
-    if (!user) {
-      return
-    }
-
-    const data: any = req.body
-
-    if (!data.postid) {
-      res.status(406).json({
-        error: 'Invalid post id',
-      })
-      return
-    }
-
-    if (!(typeof data.like == "boolean")) {
-      res.status(406).json({
-        error: 'Invalid like',
-      })
-      return
-    }
-
-    if (await this.post.likeOrDislikeAPost(
-      String(user.id),
-      String(data.postid),
-      data.like
-    )) {
-      res.status(200).json({
-        info: 'Success',
-      })
-      return
-    }
-    res.status(404).json({
-      error: 'Unsuccessful',
-    })
+  private async getAllStudents(req: Request, res: Response) {
+    res.status(200).json(await this.getAllStudents.bind(this))
   }
 
-  private async commentOnPost(req: Request, res: Response) {
+  private async addStudent(req: Request, res: Response) {
+    const student = await this.validateUser(
+      req.cookies.token,
+      ['Admin'],
+      res
+    )
+    if (!student) {
+      return
+    }
+
+    const data: any = req.body
+
+    if (!data.titel) {
+      res.status(406).json({
+        error: 'Invalid title',
+      })
+      return
+    }
+    if (!data.content) {
+      res.status(406).json({
+        error: 'Invalid content',
+      })
+      return
+    }
+    if (!student.student_id) {
+      res.status(406).json({
+        error: 'Invalid id',
+      })
+      return
+    }
+
+    this.post.addStudent(String(data.titel), String(data.content), String(student.student_id))
+
+    res.status(201).json({
+      info: 'added a Student',
+    })
+    return
+  }
+
+  // ToDo: Admin/moderator can delete all posts user just own
+  private async deleteStudent(req: Request, res: Response) {
+    const data: any = req.body
+
+    if (!data.student_id) {
+      res.status(406).json({
+        error: 'Invalid student id',
+      })
+      return
+    }
+
+    let user = await this.validateUser(req.cookies.token, ['Admin'])
+    if (user !== false) {
+      await this.post.deleteStudent(String(data.student_id))
+      res.status(200).json({
+        info:
+          'deleted student',
+      })
+      return
+    }
+
+    res.status(400).json({
+      error: 'didnt delete a student',
+    })
+    return
+  }
+
+  private async changeStudent(req: Request, res: Response) {
+    const data: any = req.body
+
+    if (!data.student_id) {
+      res.status(406).json({
+        error: 'Invalid student id',
+      })
+      return
+    }
+
+    let user = await this.validateUser(req.cookies.token, ['Admin'])
+    if (user !== false) {
+      if (await this.students.changeStudent(
+        Number(data.student_id),
+        String(data.image),
+        String(data.name),
+        String(data.surname),
+        String(data.street),
+        String(data.city),
+        Number(data.zip),
+        Date(data.date_of_birth),
+        String(data.AHV_number),
+        
+        Number(data.class_id)
+
+      )) {
+        res.status(200).json({
+          info:
+            'changed student',
+        })
+        return
+      }
+      res.status(404).json({
+        error: 'student does not exist',
+      })
+      return
+    }
+  }
+
+  private async getApplication(req: Request, res: Response) {
+    if (!(await this.validateUser(req.cookies.token, ['Admin'], res))) {
+      return
+    }
+    res.status(200).json(await this.AApplication.getApplication())
+  }
+
+  private async deleteApplication(req: Request, res: Response) {
+    let user = await this.validateUser(req.cookies.token, ['Admin'])
+    if (user !== false) {
+      const data: any = req.body
+
+      if (!data.user_id) {
+        res.status(406).json({
+          error: 'Invalid username',
+        })
+        return
+      }
+
+      await this.user.deleteApplicationById(Number(data.application_id))
+      res.status(200).json({
+        info: 'Deleted a User: ' + data.application_id,
+      })
+      return
+    }
+  }
+
+  private async changeApplication(req: Request, res: Response) {
     const user = await this.validateUser(
       req.cookies.token,
-      ['Admin', 'Moderator', 'User'],
+      ['Admin'],
       res
     )
     if (!user) {
@@ -568,135 +488,69 @@ export class API {
 
     const data: any = req.body
 
-    if (!data.postid) {
+    if (!data.newpassword) {
       res.status(406).json({
-        error: 'Invalid post id',
+        error: 'Invalid new password',
       })
       return
     }
-
-    if (!data.text) {
+    if (
+      !data.oldpassword ||
+      !(await bcrypt.compare(String(data.oldpassword), user.passwdhash))
+    ) {
       res.status(406).json({
-        error: 'Invalid post id',
+        error: 'Invalid old password',
       })
       return
     }
 
     if (
-      await this.post.commentOnAPost(
-        String(user.id),
-        String(data.postid),
-        String(data.text)
+      await this.user.changeUserPasswd(
+        String(user.name),
+        await this.hashPassword(String(data.newpassword))
       )
     ) {
       res.status(200).json({
-        info: 'commented',
+        info: 'Password Changed',
       })
       return
     }
     res.status(404).json({
-      error: 'Failed to comment',
+      error: 'didnt change the password',
     })
     return
   }
 
-  private async changeComment(req: Request, res: Response) {
+  private async addApplication(req: Request, res: Response) {
+    const user = await this.validateUser(
+      req.cookies.token,
+      ['Admin'],
+      res
+    )
+    if (!user) {
+      return
+    }
+
     const data: any = req.body
 
-    if (!data.commentid) {
+    if (!data.application_id) {
       res.status(406).json({
-        error: 'Invalid comment id',
+        error: 'Invalid newName',
       })
       return
     }
 
-    if (!data.text) {
-      res.status(406).json({
-        error: 'Invalid comment text',
+    if (await this.user.addUser(String(data.newName), user.name)) {
+      res.status(200).json({
+        info: 'Name has been changed',
       })
       return
     }
-
-    let user = await this.validateUser(req.cookies.token, ['User'])
-    if (user !== false) {
-      const ALL_COMMENTS = await this.post.getAllComments()
-
-      for (let i = 0; i < ALL_COMMENTS.length; i++) {
-        const element = ALL_COMMENTS[i];
-        
-        if (element.userid == user.id) {
-          await this.post.changeAComment(String(data.commentid), String(data.text))
-          res.status(200).json({
-            info: 'changed the comment',
-          })
-          return
-        }
-      }
-    
-      res.status(404).json({
-        error: 'Didnt change',
-      })
-      return
-    }
-    user = await this.validateUser(req.cookies.token, ['Admin', 'Moderator'])
-    if (user !== false) {
-      if (await this.post.changeAComment(String(data.commentid), String(data.text))) {
-        res.status(200).json({
-          info: 'comment Changed',
-        })
-        return
-      }
-      res.status(404).json({
-        error: 'Didnt change',
-      })
-      return
-    }
-  }
-
-  private async deleteComment(req: Request, res: Response) {
-    const data: any = req.body
-
-    if (!data.commentid) {
-      res.status(406).json({
-        error: 'Invalid comment id',
-      })
-      return
-    }
-
-    let user = await this.validateUser(req.cookies.token, ['User'])
-    if (user !== false) {
-      const ALL_COMMENTS = await this.post.getAllComments()
-
-      for (let i = 0; i < ALL_COMMENTS.length; i++) {
-        const element = ALL_COMMENTS[i];
-        
-        if (element.userid == user.id) {
-          await this.post.deleteAComment(String(data.commentid))
-          res.status(200).json({
-            info: 'deleted the comment',
-          })
-          return
-        }
-      }
-    
-      res.status(404).json({
-        error: 'Didnt delete',
-      })
-      return
-    }
-    user = await this.validateUser(req.cookies.token, ['Admin', 'Moderator'])
-    if (user !== false) {
-      if (await this.post.deleteAComment(String(data.commentid))) {
-        res.status(200).json({
-          info: 'comment deleted',
-        })
-        return
-      }
-      res.status(404).json({
-        error: 'Didnt delete',
-      })
-      return
-    }
+    res.status(404).json({
+      error:
+        'the provided name didnt check with the layout or probably alredy exists',
+    })
+    return
   }
 
   private async banAUser(req: Request, res: Response) {
