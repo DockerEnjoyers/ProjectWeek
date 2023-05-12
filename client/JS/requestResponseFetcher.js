@@ -1,55 +1,169 @@
+const baseUrl = "/csbe-projekte/inf-projektwoche2023/blau/API/V1/";
 //GET
-function getAllStudents() {
-
+async function getAllStudents() {
+    const response = await fetch( baseUrl+"Students", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const result = await response.json();
 }
-function getAllCompanies() {
 
+async function getAllCompanies() {
+    const response = await fetch( baseUrl+"Companies", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const result = await response.json();
 }
-function getAllApplications() {
 
+async function getAllApplications() {
+    const response = await fetch( baseUrl+"Applications", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const result = await response.json();
 }
-function getAllUsers() {
-    
+
+async function getAllUsers() {
+    const response = await fetch( baseUrl+"Users", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const result = await response.json(); 
 }
 
 //POST
-function postStudent() {
-
+async function postStudent(data) {
+    const response = await fetch( baseUrl+"Student", {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const result = await response.json(); 
 }
-function postCompany() {
 
+async function postCompany(data) {
+    const response = await fetch( baseUrl+"Company", {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const result = await response.json(); 
 }
-function postApplication() {
 
+async function postApplication(data) {
+    const response = await fetch( baseUrl+"Application", {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const result = await response.json(); 
 }
-function postUser() {
-    
+
+async function postUser(data) {
+    const response = await fetch( baseUrl+"User", {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const result = await response.json(); 
 }
 
 //DELETE
-function deleteStudent() {
-
+async function deleteStudent(id) {
+    const response = await fetch( baseUrl+`Student/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const result = await response.json(); 
 }
-function deleteCompany() {
 
+async function deleteCompany(id) {
+    const response = await fetch( baseUrl+`Company/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const result = await response.json(); 
 }
-function deleteApplication() {
 
+async function deleteApplication(id) {
+    const response = await fetch( baseUrl+`Application/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const result = await response.json(); 
 }
-function deleteUser() {
-    
+
+async function deleteUser(id) {
+    const response = await fetch( baseUrl+`User/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const result = await response.json(); 
 }
 
 //PUT
-function putStudent() {
-
+async function putStudent(data, id) {
+    const response = await fetch( baseUrl+`Student/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const result = await response.json(); 
 }
-function putCompany() {
-
+async function putCompany(data, id) {
+    const response = await fetch( baseUrl+`Company/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const result = await response.json(); 
 }
-function putApplication() {
-
+async function putApplication(data, id) {
+    const response = await fetch( baseUrl+`Application/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const result = await response.json(); 
 }
-function putUser() {
-    
+async function putUser(data, id) {
+    const response = await fetch( baseUrl+`User/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const result = await response.json(); 
 }

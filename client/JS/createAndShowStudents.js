@@ -246,8 +246,6 @@ function createNewStudent() {
             } else if (checkOut === 2) {
                 if (marks.files[0] !== undefined) {
                     checkOut = 3;
-                    if (contract.files[0] === undefined) files.push(0);
-                    if (efz.files[0] === undefined) files.push(0);
                     reader.readAsDataURL(marks.files[0]); 
                 } else {
                     addNewStudent(files, name.value, surname.value, gender.value, birthday.value, city.value, street.value, postCode.value, email.value, telNum.value, ahv.value, qv.value, guardian.value, spec.value, classe.value);
