@@ -30,7 +30,7 @@ export class Students {
   ): Promise<boolean> {
     try {
       const query = `
-            INSERT INTO Students (
+            INSERT INTO students (
                 student_id,
                 image
                 name,
@@ -82,7 +82,7 @@ export class Students {
 
   async getAllStudents(): Promise<AStudent[]> {
     let arrayOfStudents: AStudent[] = await this._database.executeSQL(
-      `SELECT * FROM Students`
+      `SELECT * FROM students`
     )
 
     let newPostsWithCommentsLikes: any[] = []
@@ -91,7 +91,7 @@ export class Students {
       const student: AStudent = arrayOfStudents[i]
       
       let studentClass: AClass = await this._database.executeSQL(
-        `SELECT * FROM Classes WHERE class_id = ${student.class_id}`
+        `SELECT * FROM class WHERE class_id = ${student.class_id}`
       )
 
       newPostsWithCommentsLikes.push({
@@ -106,7 +106,7 @@ export class Students {
 
   async getOneStudent(student_id: number): Promise<AStudent[] | boolean> {
     const student = await this._database.executeSQL(
-      `SELECT * FROM Students WHERE userid = ${student_id}`
+      `SELECT * FROM students WHERE userid = ${student_id}`
     )
     return student
   }
@@ -114,7 +114,7 @@ export class Students {
   async deleteStudent(student_id: number): Promise<boolean> {
     if (
       await this._database.executeSQL(
-        `DELETE FROM Students WHERE id = ${student_id}`
+        `DELETE FROM students WHERE id = ${student_id}`
       )
     ) {
       return true
@@ -143,7 +143,7 @@ export class Students {
   ): Promise<boolean> {
     if (
       await this._database.executeSQL(
-        `UPDATE Students SET image = '${this._database.preventSQLInjection(image)}',
+        `UPDATE students SET image = '${this._database.preventSQLInjection(image)}',
         name = '${this._database.preventSQLInjection(name)}'
         surname = '${this._database.preventSQLInjection(surname)}'
         street = '${this._database.preventSQLInjection(street)}'
@@ -228,14 +228,14 @@ export class Students {
 
   async getStudentsOfClass(class_id: number): Promise<AStudent[]> {
     let arrayOfStudents: AStudent[] = await this._database.executeSQL(
-      `SELECT * FROM Students WHERE class_id = ${class_id}`
+      `SELECT * FROM students WHERE class_id = ${class_id}`
     )
     return arrayOfStudents
   }
 
   async getAllGuardians(): Promise<AGuardian[]> {
     let arrayOfGuardians: AGuardian[] = await this._database.executeSQL(
-      `SELECT * FROM Guardians`
+      `SELECT * FROM guardians`
     )
     return arrayOfGuardians
   }
@@ -249,7 +249,7 @@ export class Students {
     phone: number,
   ): Promise<boolean> {
     try {
-      const query = `INSERT INTO Guardians (
+      const query = `INSERT INTO guardians (
         id,
         name,
         surname,
@@ -280,7 +280,7 @@ export class Students {
 
   async deleteGuardian(guardian_id: number): Promise<boolean> {
     if (
-      await this._database.executeSQL(`DELETE FROM Guardians WHERE id = ${guardian_id}`)
+      await this._database.executeSQL(`DELETE FROM guardians WHERE id = ${guardian_id}`)
     ) {
       return true
     }
@@ -298,7 +298,7 @@ export class Students {
   ): Promise<boolean> {
     if (
       await this._database.executeSQL(
-        `UPDATE Guardians SET name = '${this._database.preventSQLInjection(name)}',
+        `UPDATE guardians SET name = '${this._database.preventSQLInjection(name)}',
          surname = '${this._database.preventSQLInjection(surname)}',
          street = '${this._database.preventSQLInjection(street)}',
          city = '${this._database.preventSQLInjection(city)}',
@@ -314,7 +314,7 @@ export class Students {
 
   async getAllCompanies(): Promise<ACompany[]> {
     let arrayOfCompanies: ACompany[] = await this._database.executeSQL(
-      `SELECT * FROM Companies`
+      `SELECT * FROM companies`
     )
     return arrayOfCompanies
   }
@@ -327,7 +327,7 @@ export class Students {
     collaborative_contract: string
   ): Promise<boolean> {
     try {
-      const query = `INSERT INTO Companies (
+      const query = `INSERT INTO companies (
         id,
         company_name,
         street,
@@ -356,7 +356,7 @@ export class Students {
 
   async deleteCompany(company_id: number): Promise<boolean> {
     if (
-      await this._database.executeSQL(`DELETE FROM Companies WHERE company_id = ${company_id}`)
+      await this._database.executeSQL(`DELETE FROM companies WHERE company_id = ${company_id}`)
     ) {
       return true
     }
@@ -373,7 +373,7 @@ export class Students {
   ): Promise<boolean> {
     if (
       await this._database.executeSQL(
-        `UPDATE Companies SET company_name = '${this._database.preventSQLInjection(company_name)}',
+        `UPDATE companies SET company_name = '${this._database.preventSQLInjection(company_name)}',
          street = '${this._database.preventSQLInjection(street)}',
          city = '${this._database.preventSQLInjection(city)}',
          zip = '${zip}',
@@ -388,14 +388,14 @@ export class Students {
 
   async getOneCompany(company_id: number): Promise<ACompany> {
     let company: ACompany = await this._database.executeSQL(
-      `SELECT * FROM Companies WHERE company_id = ${company_id}`
+      `SELECT * FROM companies WHERE company_id = ${company_id}`
     )
     return company
   }
 
   async getAllContactPersons(): Promise<AContactPerson[]> {
     let arrayOfContactPersons: AContactPerson[] = await this._database.executeSQL(
-      `SELECT * FROM Contact_Persons`
+      `SELECT * FROM contact_person`
     )
     return arrayOfContactPersons
   }
@@ -408,7 +408,7 @@ export class Students {
     phone: number,
   ): Promise<boolean> {
     try {
-      const query = `INSERT INTO Contact_Persons (
+      const query = `INSERT INTO contact_person (
         id,
         company_id,
         name,
@@ -437,7 +437,7 @@ export class Students {
 
   async deleteContactPerson(contact_person_id: number): Promise<boolean> {
     if (
-      await this._database.executeSQL(`DELETE FROM Contact_Persons WHERE id = ${contact_person_id}`)
+      await this._database.executeSQL(`DELETE FROM contact_person WHERE id = ${contact_person_id}`)
     ) {
       return true
     }
@@ -454,7 +454,7 @@ export class Students {
   ): Promise<boolean> {
     if (
       await this._database.executeSQL(
-        `UPDATE Contact_Persons SET company_id = '${company_id}',
+        `UPDATE contact_person SET company_id = '${company_id}',
          name = '${this._database.preventSQLInjection(name)}',
          surname = '${this._database.preventSQLInjection(surname)}',
          email = '${this._database.preventSQLInjection(email)}',
@@ -469,14 +469,14 @@ export class Students {
 
   async getOneContactPerson(contact_person_id: number): Promise<AContactPerson> {
     let contact_person: AContactPerson = await this._database.executeSQL(
-      `SELECT * FROM Contact_Persons WHERE id = ${contact_person_id}`
+      `SELECT * FROM contact_person WHERE id = ${contact_person_id}`
     )
     return contact_person
   }
 
   async getContactsOFCompany(company_id: number): Promise<AContactPerson[]> {
     let arrayOfContactPersons: AContactPerson[] = await this._database.executeSQL(
-      `SELECT * FROM Contact_Persons WHERE company_id = ${company_id}`
+      `SELECT * FROM contact_person WHERE company_id = ${company_id}`
     )
     return arrayOfContactPersons
   }
@@ -488,7 +488,7 @@ export class Students {
     approval_date: Date,
   ): Promise<boolean> {
     try {
-      const query = `INSERT INTO Contracts (
+      const query = `INSERT INTO contracts (
         id,
         date_of_contract,
         salary_y1,
@@ -522,7 +522,7 @@ export class Students {
     ): Promise<boolean> {
     if (
       await this._database.executeSQL(
-        `UPDATE Contracts SET date_of_contract = '${date_of_contract}',
+        `UPDATE contracts SET date_of_contract = '${date_of_contract}',
          salary_y1 = '${salary_y1}',
          salary_y2 = '${salary_y2}',
          approval_date = '${approval_date}'
@@ -536,7 +536,7 @@ export class Students {
 
   async deleteContract(contract_id: number): Promise<boolean> {
     if (
-      await this._database.executeSQL(`DELETE FROM Contracts WHERE id = ${contract_id}`)
+      await this._database.executeSQL(`DELETE FROM contracts WHERE id = ${contract_id}`)
     ) {
       return true
     }
@@ -545,14 +545,14 @@ export class Students {
 
   async getOneContract(contract_id: number): Promise<AContract> {
     let contract: AContract = await this._database.executeSQL(
-      `SELECT * FROM Contracts WHERE id = ${contract_id}`
+      `SELECT * FROM contracts WHERE id = ${contract_id}`
     )
     return contract
   }
 
   async getAllContracts(): Promise<AContract[]> {
     let arrayOfContracts: AContract[] = await this._database.executeSQL(
-      `SELECT * FROM Contracts`
+      `SELECT * FROM contracts`
     )
     return arrayOfContracts
   }
@@ -588,7 +588,7 @@ export class Students {
 
   async deleteUser(user_id: number): Promise<boolean> {
     if (
-      await this._database.executeSQL(`DELETE FROM Users WHERE id = ${user_id}`)
+      await this._database.executeSQL(`DELETE FROM users WHERE id = ${user_id}`)
     ) {
       return true
     }
@@ -602,7 +602,7 @@ export class Students {
   ): Promise<boolean> {
     if (
       await this._database.executeSQL(
-        `UPDATE Users SET username = '${this._database.preventSQLInjection(username)}',
+        `UPDATE users SET username = '${this._database.preventSQLInjection(username)}',
          password = '${this._database.preventSQLInjection(password)}'
          WHERE id = ${user_id}`
       )
@@ -612,5 +612,5 @@ export class Students {
     return false
   }
 
-  
+
 }
