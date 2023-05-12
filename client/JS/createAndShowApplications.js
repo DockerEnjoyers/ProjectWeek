@@ -65,7 +65,7 @@ function createNewApplicationWindow() {
         <input id="approve" type="date" class="w-[100%] h-[100%] text-[1.2rem]  bg-[rgba(0,0,0,0)] mt-[1rem] rounded-[2px] border-2">
         <label class="absolute left-[0.2rem] top-0 text-[1rem] font-normal text-[rgb(112,117,121)] px-[0.25rem] bg-[rgba(255,255,255,0.2)]">Approval date</label>
     </div>
-    <button type="button" onclick="createApplication()" class="w-[100%] h-[3.5rem] mt-[0.5rem] mb-[0.25rem] bg-[rgba(0,0,0,0)] text-[1.5rem] hover:bg-[rgba(87,87,87,0.4)] rounded">
+    <button type="button" onclick="createNewApplication()" class="w-[100%] h-[3.5rem] mt-[0.5rem] mb-[0.25rem] bg-[rgba(0,0,0,0)] text-[1.5rem] hover:bg-[rgba(87,87,87,0.4)] rounded">
         Create new application
     </button>
     `;
@@ -138,9 +138,9 @@ function createApplication(sName, rName, fSalary, sSalary, appDate, status, intD
     const postEdit = document.createElement("button");
     //Text
     postName.innerText = `Company: ${sName}`;
-     postAddress.innerText = `Responsible person: ${rName}`;
-     postPersInfo.innerText = `Interview date: ${intDate} \nTry-out date: ${tryOut}`;
-     postPerson.innerText = `Contract date: ${dateContract}\nFirst yaer salary:${fSalary}| Seconde yaer: ${sSalary}\nApproval date: ${approve}`;
+    postAddress.innerText = `Responsible person: ${rName}`;
+    postPersInfo.innerText = `Interview date: ${intDate} \nTry-out date: ${tryOut}`;
+    postPerson.innerText = `Contract date: ${dateContract}\nFirst yaer salary:${fSalary}| Seconde yaer: ${sSalary}\nApproval date: ${approve}`;
     //Styles
     postWindow.className = "bg-white mt-[2rem] border-4 border-gray-300 shadow-lg shadow-black";
     postHeader.className = "flex flex-row mt-[0.5rem]";

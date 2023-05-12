@@ -85,6 +85,27 @@ async function postUser(data) {
     const result = await response.json(); 
 }
 
+//Login and Logout
+async function postLogin(data) {
+    const response = await fetch( baseUrl+"Login", {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const result = await response.json(); 
+}
+async function postLogout() {
+    const response = await fetch( baseUrl+"Logout", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const result = await response.json(); 
+}
+
 //DELETE
 async function deleteStudent(id) {
     const response = await fetch( baseUrl+`Student/${id}`, {
