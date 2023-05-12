@@ -2,15 +2,15 @@
 	global $database;
 
 	//Read all entries from the database.
-	$result = $database->query("SELECT * FROM product");
+	$result = $database->query("SELECT * FROM companies");
 
-	$products = array();
+	$companies = array();
 
 	//Put all the entries into an array.
 	while ($row = $result->fetch_assoc()) {
-		$products[] = $row;
+		$companies[] = $row;
 	}
 
 	//Output the entire array.
-	echo json_encode($products);
+	echo json_encode($companies);
 ?>

@@ -18,26 +18,6 @@
 
 	$app->setBasePath("/API/V1");
 
-	/**
-	 * @OA\Post(
-	 *     path="/Authenticate",
-	 *     summary="Checks the provided username and password and returns an access token if they are valid. The access token is saved in the cookies.",
-	 *     tags={"Authentication"},
-	 *     requestBody=@OA\RequestBody(
-	 *         request="/Authenticate",
-	 *         required=true,
-	 *         description="Username and password",
-	 *         @OA\MediaType(
-	 *             mediaType="application/json",
-	 *             @OA\Schema(
-	 *                 @OA\Property(property="username", type="string", example="root"),
-	 *                 @OA\Property(property="password", type="string", example="sUP3R53CR3T#")
-	 *             )
-	 *         )
-	 *     ),
-	 *     @OA\Response(response="200", description="Success")
-	 * )
-	 */
 	$app->post("/Authenticate", function (Request $request, Response $response, $args) {
 		$data = json_decode(file_get_contents("php://input"), true);
 

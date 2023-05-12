@@ -2,7 +2,7 @@
 	global $database;
 
 	//Delete the entry in the database.
-	$result = $database->query("DELETE FROM product WHERE sku = '" . $args["sku"] . "'");
+	$result = $database->query("DELETE FROM class WHERE class_id = '" . $args["class_id"] . "'");
 
 	//Return a 404 response if no product was affected by this query or if an error occurred.
 	if ($result !== true || $database->affected_rows == 0) {

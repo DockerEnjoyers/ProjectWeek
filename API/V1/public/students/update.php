@@ -3,26 +3,26 @@
 
 	$data = json_decode(file_get_contents("php://input"), true);
 
-	//Return a 400 response if no product information was provided in the request body.
+	//Return a 400 response if no student information was provided in the request body.
 	if (!$data) {
 		http_response_code(400);
-		die("Please provide the product information as a correct JSON object in the request body.");
+		die("Please provide the student information as a correct JSON object in the request body.");
 	}
 
 	//First try to read the existing product information.
-	$result = $database->query("SELECT * FROM product WHERE sku = '" . $args["sku"] . "'");
+	$result = $database->query("SELECT * FROM students WHERE student_id = '" . $args["student_id"] . "'");
 
 	//If the product does not exist, create it. Otherwise just update the information.
 	if (!$result || $result === true || $result->num_rows == 0) {
 		//Make sure the required fields are provided.
-		if (!isset($data["name"]) || !isset($data["stock"]) || !isset($data["active"])) {
+		if (!isset($data["name"]) || !isset($data["surname"]) || !isset($data["street"]) || !isset($data["city"]) || !isset($data["zip"]) || !isset($data["date_of_birth"]) || !isset($data["ahv"]) || !isset($data["specialization"])) {
 			http_response_code(400);
 			die("You must provide at least the attributes \"name\", \"stock\" and \"active\".");
 		}
 
-		$id_category = "NULL";
-		if (isset($data["id_category"])) {
-			$id_category = $data["id_category"];
+		$student_id = "NULL";
+		if (isset($data["student_id"])) {
+			$student_id = $data["student_id"];
 		}
 
 		$product_image = "NULL";
